@@ -25,7 +25,7 @@ enum ControlState {
 #[cfg(not(feature = "control-buffer-256"))]
 const CONTROL_BUF_LEN: usize = 128;
 #[cfg(feature = "control-buffer-256")]
-const CONTROL_BUF_LEN: usize = 256;
+const CONTROL_BUF_LEN: usize = 512;
 
 /// Buffers and parses USB control transfers.
 pub struct ControlPipe<'a, B: UsbBus> {
