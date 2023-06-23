@@ -241,7 +241,13 @@ impl<B: UsbBus> ControlPipe<'_, B> {
             _ => return Err(UsbError::InvalidState),
         };
 
-        let len = f(&mut self.buf[..])?;
+        let len = match f(&mut self.buf[..]) {
+            Err(error) => {
+                self.set_error();
+                return Err(error)
+            },
+            Ok(len) => len,
+        };
 
         if len > self.buf.len() {
             self.set_error();
